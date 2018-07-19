@@ -1,0 +1,6 @@
+<button (click)="addFlight()">Add flight</button>
+<button *ngIf="flights && flights.length>0" (click)="removeFlight(flights[0])">Remove flight</button>
+
+<p *ngFor="let f of flights">
+    {{f.airlineId}} {{f.flightNumber}}
+</p>
