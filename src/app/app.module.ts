@@ -2,13 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { StoreModule } from '../../node_modules/@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { addFlightsReducer } from './reducers/flights.reducer';
 import { FlightsComponent } from './flights/flights.component';
-import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {EffectsModule} from "@ngrx/effects";
-import {FlightsService} from "./flights/flights.service";
-import {FlightsEffects} from "./effects/flights-effects";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { FlightsService } from './flights/flights.service';
+import { FlightsEffects } from './effects/flights-effects';
+import { environment } from '../environments/environment.prod';
 
 @NgModule({
   declarations: [
@@ -17,13 +18,14 @@ import {FlightsEffects} from "./effects/flights-effects";
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({flights: addFlightsReducer}),
+    StoreModule.forRoot({ flights: addFlightsReducer }),
     StoreDevtoolsModule.instrument({
-      maxAge: 20
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([FlightsEffects])
   ],
   providers: [FlightsService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
